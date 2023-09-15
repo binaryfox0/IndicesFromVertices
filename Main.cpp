@@ -102,12 +102,14 @@ int main()
 
     modified_vector = vector_vertices;
 
-    // Generate new vertices to use with indices
-    std::vector<int> index = search(modified_vector);
-    for (int i = static_cast<int>(index.size()) - 1; i >= 0; i--)
+    // Remove duplicate vector
+    while(1)
     {
-        int a = index[i];
-        modified_vector.erase(modified_vector.begin() + a);
+        std::vector<int> find_index = search(modified_vector);
+        modified_vector.erase(modified_vector.begin() + find_index[0]);
+
+        find_index = search(modified_vector);
+        if(find_index.empty()) break;
     }
 
     if (modified_vector.empty()) {
