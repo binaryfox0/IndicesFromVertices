@@ -59,15 +59,25 @@ int main()
 
 
     std::cout << "Copy your vertices here: " << std::endl;
+    int emptyLines = 0; // Counter for empty lines
+
     while (true) {
         std::string input;
 
         std::getline(std::cin, input);
 
         if (input.empty()) {
-            std::cout << "Processing input vertices..." << std::endl;
-            break;
+            emptyLines++;
+            if (emptyLines == 2) {
+                std::cout << "Processing input vertices..." << std::endl;
+                std::cout << "Please wait while the vertices are being processed..." << std::endl; // Additional line of processing
+            }
+            if (emptyLines >= 2) {
+                std::cout << "Please wait..." << std::endl; // Additional line of processing
+                break;
+            }
         } else {
+            emptyLines = 0;
             text.push_back(input);
         }
     }
