@@ -68,11 +68,10 @@ int main()
 
         if (input.empty()) {
             emptyLines++;
-            if (emptyLines == 2) {
-                std::cout << "Processing input vertices..." << std::endl;
-                std::cout << "Please wait while the vertices are being processed..." << std::endl; // Additional line of processing
+            if (emptyLines == 1) {
+                std::cout << "Press another enter key to processing" << std::endl;
             }
-            if (emptyLines >= 2) {
+            if (emptyLines == 2) {
                 std::cout << "Please wait..." << std::endl; // Additional line of processing
                 break;
             }
@@ -130,13 +129,16 @@ int main()
     std::cout << "New vertices using with indices" << std::endl;
     for (auto i : modified_vector)
     {
-        for (auto j : i)
+        if(!i.empty())
         {
-            std::wstring text = float2wstr(j) + L"f";
-            if (text[0] != '-') std::cout << " ";
-            std::wcout << text << ", ";
+            for (auto j : i)
+            {
+                std::wstring text = float2wstr(j) + L"f";
+                if (text[0] != '-') std::cout << " ";
+                std::wcout << text << ", ";
+            }
+            std::cout << "\n";
         }
-        std::cout << "\n";
     }
 
     // Generate indices from vertices
