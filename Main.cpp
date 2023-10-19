@@ -68,10 +68,10 @@ int main()
 
         if (input.empty()) {
             emptyLines++;
-            if (emptyLines == 1) {
+            if (emptyLines == 2) {
                 std::cout << "Press another enter key to processing" << std::endl;
             }
-            if (emptyLines == 2) {
+            if (emptyLines == 3) {
                 std::cout << "Please wait..." << std::endl; // Additional line of processing
                 break;
             }
@@ -85,6 +85,7 @@ int main()
     {
         a.erase(std::remove(a.begin(), a.end(), '\t'), a.end());
         a.erase(std::remove(a.begin(), a.end(), ' '), a.end());
+        if(a == "\n") text.erase(std::remove(text.begin(), text.end(), a), text.end());
 
         std::vector<float> row;
         std::stringstream ss(a);
@@ -129,16 +130,13 @@ int main()
     std::cout << "New vertices using with indices" << std::endl;
     for (auto i : modified_vector)
     {
-        if(!i.empty())
+        for (auto j : i)
         {
-            for (auto j : i)
-            {
-                std::wstring text = float2wstr(j) + L"f";
-                if (text[0] != '-') std::cout << " ";
-                std::wcout << text << ", ";
-            }
-            std::cout << "\n";
+            std::wstring text = float2wstr(j) + L"f";
+            if (text[0] != '-') std::cout << " ";
+            std::wcout << text << ", ";
         }
+        std::cout << "\n";
     }
 
     // Generate indices from vertices
