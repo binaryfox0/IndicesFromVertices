@@ -25,7 +25,7 @@ std::wstring float2wstr(float number)
     return str;
 }
 
-std::vector<int> search(const std::vector<std::vector<float>> vector)
+std::vector<int> search(const std::vector<std::vector<std::wstring>> vector)
 {
     std::vector<int> index;
     for (int i = 0; i < vector.size(); i++)
@@ -41,7 +41,7 @@ std::vector<int> search(const std::vector<std::vector<float>> vector)
 
 int main()
 {
-    std::vector<std::vector<float>> vector_vertices, modified_vector;
+    std::vector<std::vector<std::wstring>> vector_vertices, modified_vector;
     /*
     int numColumns = 3, numRows = sizeof(vertices) / sizeof(float) / numColumns;
     for (int row = 0; row < numRows; row++)
@@ -55,24 +55,21 @@ int main()
     }
     */
 
-    std::vector<std::string> text;
+    std::vector<std::wstring> text;
 
 
     std::cout << "Copy your vertices here: " << std::endl;
     int emptyLines = 0; // Counter for empty lines
 
     while (true) {
-        std::string input;
+        std::wstring input;
 
-        std::getline(std::cin, input);
+        std::getline(std::wcin, input);
 
         if (input.empty()) {
             emptyLines++;
             if (emptyLines == 2) {
-                std::cout << "Press another enter key to processing" << std::endl;
-            }
-            if (emptyLines == 3) {
-                std::cout << "Please wait..." << std::endl; // Additional line of processing
+                std::cout << "Please wait..." << std::endl;
                 break;
             }
         } else {
@@ -85,17 +82,16 @@ int main()
     {
         a.erase(std::remove(a.begin(), a.end(), '\t'), a.end());
         a.erase(std::remove(a.begin(), a.end(), ' '), a.end());
-        if(a == "\n") text.erase(std::remove(text.begin(), text.end(), a), text.end());
+        if(a == L"\n") text.erase(std::remove(text.begin(), text.end(), a), text.end());
 
-        std::vector<float> row;
-        std::stringstream ss(a);
+        std::vector<std::wstring> row;
+        std::wstringstream ss(a);
 
-        std::string token;
-        while (std::getline(ss, token, ',')) {
+        std::wstring token;
+        while (std::getline(ss, token, L',')) {
             // Convert string token to float
             try {
-                float value = std::stof(token);
-                row.push_back(value);
+                row.push_back(token);
             } catch (const std::exception& e) {
                 std::cout << "Error: Out of range value encountered. Please enter a valid floating-point number." << std::endl;
                 return 1;
@@ -132,9 +128,8 @@ int main()
     {
         for (auto j : i)
         {
-            std::wstring text = float2wstr(j) + L"f";
-            if (text[0] != '-') std::cout << " ";
-            std::wcout << text << ", ";
+            if(j[0] != L'-') std::wcout << L' ';
+            std::wcout << j << ", ";
         }
         std::cout << "\n";
     }
@@ -145,11 +140,11 @@ int main()
     int Rows = vector_vertices.size() / numSplitVectors;
 
     // Create a 3D vector to store the split vectors
-    std::vector<std::vector<std::vector<float>>> splitVector3D(numSplitVectors);
+    std::vector<std::vector<std::vector<std::wstring>>> splitVector3D(numSplitVectors);
 
     // Split the original vector and store the split vectors in the 3D vector
     for (int i = 0; i < numSplitVectors; ++i) {
-        std::vector<std::vector<float>> splitVector(vector_vertices.begin() + i * Rows, vector_vertices.begin() + (i + 1) * Rows);
+        std::vector<std::vector<std::wstring>> splitVector(vector_vertices.begin() + i * Rows, vector_vertices.begin() + (i + 1) * Rows);
         splitVector3D[i] = splitVector;
     }
 
