@@ -83,27 +83,20 @@ int main()
         a.erase(std::remove(a.begin(), a.end(), '\t'), a.end());
         a.erase(std::remove(a.begin(), a.end(), ' '), a.end());
         if(a == L"\n") text.erase(std::remove(text.begin(), text.end(), a), text.end());
+	// Erase the data outside bracket
+	auto pos = a.find(L'{');
+	if(pos != std::wstring::npos) a.erase(0, pos + 1);
+	pos = a.find(L'}');
+	if(pos != std::wstring::npos) a.erase(pos, a.length() - pos);
 
         std::vector<std::wstring> row;
         std::wstringstream ss(a);
 
         std::wstring token;
-        while (std::getline(ss, token, L',')) {
-            // Convert string token to float
-            try {
-                row.push_back(token);
-            } catch (const std::exception& e) {
-                std::cout << "Error: Out of range value encountered. Please enter a valid floating-point number." << std::endl;
-                return 1;
-            }
-        }
+        while (std::getline(ss, token, L','))
+            	row.push_back(token);
 
         vector_vertices.push_back(row);
-    }
-
-    for(auto a : vector_vertices)
-    {
-        a.erase(a.begin() + 3, a.end());
     }
 
     modified_vector = vector_vertices;
