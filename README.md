@@ -16,17 +16,16 @@ cl /Zi /EHsc /nologo /std:c++14 /Fe:indicesgenerator.exe Main.cpp
 
 ## Usage
 
+**_Warning_: A bug found when inputing a vertices list with program code can be made program generate faulty indices list. Moderator is fixing it as fast as possible. Thank you**
+
 1. Launch the program from command line.
-
 2. Copy the vertices from your code directly to program.
-
 3. Press Enter 2 times to process
-
 4. Copy the generate indices and modified vertices to your code
 
 ## Contributing
 
-Contributions to this calculator application are welcome. If you find any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request.
+Contributions to this application are welcome. If you find any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request.
 
 ## License
 
